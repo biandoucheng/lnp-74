@@ -6,10 +6,10 @@
 sed -i 's/proc_open,//g' /usr/local/php/etc/php.ini
 sed -i 's/proc_get_status,//g' /usr/local/php/etc/php.ini
 sed -i 's/shell_exec,//g' /usr/local/php/etc/php.ini
-sed -i 's/max_children.*[0-9]\+/max_children = 25/g' /usr/local/php/etc/php-fpm.conf
-sed -i 's/start_servers.*[0-9]\+/start_servers = 10/g' /usr/local/php/etc/php-fpm.conf
-sed -i 's/min_spare_servers.*[0-9]\+/min_spare_servers = 5/g' /usr/local/php/etc/php-fpm.conf
-sed -i 's/max_spare_servers.*[0-9]\+/max_spare_servers = 10/g' /usr/local/php/etc/php-fpm.conf
+sed -i 's/max_children.*[0-9]\+/max_children = 30/g' /usr/local/php/etc/php-fpm.conf
+sed -i 's/start_servers.*[0-9]\+/start_servers = 15/g' /usr/local/php/etc/php-fpm.conf
+sed -i 's/min_spare_servers.*[0-9]\+/min_spare_servers = 10/g' /usr/local/php/etc/php-fpm.conf
+sed -i 's/max_spare_servers.*[0-9]\+/max_spare_servers = 20/g' /usr/local/php/etc/php-fpm.conf
 sed -i 's/serialize_precision.*[0-9]\+/serialize_precision = 14/g' /usr/local/php/etc/php-fpm.conf
 
 echo 'zend_extension=opcache' >> /usr/local/php/etc/php.ini
@@ -44,4 +44,4 @@ nginx
 echo '* * * * * root cd /usr/local/nginx/html && php artisan schedule:run' >> /etc/crontab
 
 #开启linux 定时任务常驻窗口
-/usr/sbin/crond -
+/usr/sbin/crond -n
