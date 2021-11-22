@@ -3,23 +3,20 @@
 #laravel 项目初始化脚本示例
 
 #初始化php配置
-sed -i 's/proc_open,//g' /usr/local/php/etc/php.ini
-sed -i 's/proc_get_status,//g' /usr/local/php/etc/php.ini
-sed -i 's/shell_exec,//g' /usr/local/php/etc/php.ini
-sed -i 's/max_children.*[0-9]\+/max_children = 30/g' /usr/local/php/etc/php-fpm.conf
-sed -i 's/start_servers.*[0-9]\+/start_servers = 15/g' /usr/local/php/etc/php-fpm.conf
-sed -i 's/min_spare_servers.*[0-9]\+/min_spare_servers = 10/g' /usr/local/php/etc/php-fpm.conf
-sed -i 's/max_spare_servers.*[0-9]\+/max_spare_servers = 20/g' /usr/local/php/etc/php-fpm.conf
-sed -i 's/serialize_precision.*[0-9]\+/serialize_precision = 14/g' /usr/local/php/etc/php-fpm.conf
+sed -i 's/max_children.*[0-9]\+/max_children = 30/g' /etc/opt/remi/php74/php-fpm.d/www.conf
+sed -i 's/start_servers.*[0-9]\+/start_servers = 15/g' /etc/opt/remi/php74/php-fpm.d/www.conf
+sed -i 's/min_spare_servers.*[0-9]\+/min_spare_servers = 10/g' /etc/opt/remi/php74/php-fpm.d/www.conf
+sed -i 's/max_spare_servers.*[0-9]\+/max_spare_servers = 20/g' /etc/opt/remi/php74/php-fpm.d/www.conf
+sed -i 's/serialize_precision.*[0-9]\+/serialize_precision = 14/g' /etc/opt/remi/php74/php-fpm.d/www.conf
 
-echo 'zend_extension=opcache' >> /usr/local/php/etc/php.ini
-echo 'opcache.enable=1' >> /usr/local/php/etc/php.ini
-echo 'opcache.enable_cli=1' >> /usr/local/php/etc/php.ini
-echo 'opcache.memory_consumption=128' >> /usr/local/php/etc/php.ini
-echo 'opcache.interned_strings_buffer=8' >> /usr/local/php/etc/php.ini
-echo 'opcache.max_accelerated_files=10000' >> /usr/local/php/etc/php.ini
-echo 'opcache.revalidate_freq=60' >> /usr/local/php/etc/php.ini
-echo 'opcache.fast_shutdown=1' >> /usr/local/php/etc/php.ini
+echo 'zend_extension=opcache' >> /etc/opt/remi/php74/php.ini
+echo 'opcache.enable=1' >> /etc/opt/remi/php74/php.ini
+echo 'opcache.enable_cli=1' >> /etc/opt/remi/php74/php.ini
+echo 'opcache.memory_consumption=128' >> /etc/opt/remi/php74/php.ini
+echo 'opcache.interned_strings_buffer=8' >> /etc/opt/remi/php74/php.ini
+echo 'opcache.max_accelerated_files=10000' >> /etc/opt/remi/php74/php.ini
+echo 'opcache.revalidate_freq=60' >> /etc/opt/remi/php74/php.ini
+echo 'opcache.fast_shutdown=1' >> /etc/opt/remi/php74/php.ini
 
 #尝试解决DNS解析超时
 echo 'options single-request-reopen' >> /etc/resolv.conf
