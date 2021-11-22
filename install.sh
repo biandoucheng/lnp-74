@@ -38,8 +38,24 @@ yum --enablerepo=remi -y install php74-php php74-php-fpm
 #安装php74扩展
 yum --enablerepo=remi -y install php74-php-xml php74-php-sockets php74-php-session php74-php-mysql php74-php-cli php74-php-bcmath php74-php-xml php74-php-pecl-redis php74-php-devel php74-php-common php74-php-json php74-php-mbstring php74-php-pdo php74-php-pear php74-php-process php74-php-intl
 
+#设置php软连接
+mv /usr/bin/php74-cgi /usr/bin/php-cgi
+mv /usr/bin/php74-pear /usr/bin/php-pear
+mv /usr/bin/php74-phar /usr/bin/php-phar
+mv /usr/bin/php74 /usr/bin/php
+ln -s /opt/remi/php74/root/usr/sbin/php-fpm /usr/bin/php-fpm
+
 #替换php-fpm的www.conf配置文件
 cp /usr/local/etc/www.conf /etc/opt/remi/php74/php-fpm.d/
+
+#设置php禁用函数
+sed -i 's/disable_functions =/disable_functions = passthru,exec,system,popen,chroot,scandir,chgrp,chown,escapesh
+ellcmd,escapeshellarg,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server,pfsockopen,putenv/g' /etc/opt/remi/php74/php.ini
+
+#安装compsoer
+curl -sS https://getcomposer.org/installer | php
+mv composer.phar /usr/local/bin/composer
+chmod -R 777 /usr/local/bin/composer
 
 #清理yum缓存
 yum clean all
