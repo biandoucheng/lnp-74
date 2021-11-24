@@ -36,8 +36,10 @@ mkdir /var/log/nginx
 
 #安装crontab
 yum -y install vixie-cron
-
 yum -y install crontabs
+
+#安装网络工具包
+yum -y install bind-utils
 
 #安装remi镜像源
 yum -y install epel-release && rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
