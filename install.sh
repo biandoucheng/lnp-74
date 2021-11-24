@@ -2,6 +2,11 @@
 # author:biandou
 #lnp-74 环境安装脚本
 
+#下载最新签名
+cd /etc/pki/rpm-gpg
+wget http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
+rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
+
 #安装 nginx必须环境
 yum -y install gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel wget
 
@@ -29,6 +34,11 @@ ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 #创建nginx日志目录
 mkdir /var/log/nginx
 
+#安装crontab
+yum -y install vixie-cron
+
+yum -y install crontabs
+
 #安装remi镜像源
 yum -y install epel-release && rpm -ivh http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
@@ -36,7 +46,7 @@ yum -y install epel-release && rpm -ivh http://rpms.famillecollet.com/enterprise
 yum --enablerepo=remi -y install php74-php php74-php-fpm
 
 #安装php74扩展
-yum --enablerepo=remi -y install php74-php-xml php74-php-sockets php74-php-session php74-php-mysql php74-php-cli php74-php-bcmath php74-php-xml php74-php-pecl-redis php74-php-devel php74-php-common php74-php-json php74-php-mbstring php74-php-pdo php74-php-pear php74-php-process php74-php-intl
+yum --enablerepo=remi -y install php74-php-xml php74-php-sockets php74-php-session php74-php-mysql php74-php-cli php74-php-bcmath php74-php-xml php74-php-pecl-redis php74-php-devel php74-php-common php74-php-json php74-php-mbstring php74-php-pdo php74-php-pear php74-php-process php74-php-intl php74-php-opcache
 
 #设置php软连接
 mv /usr/bin/php74-cgi /usr/bin/php-cgi
@@ -52,10 +62,16 @@ cp /usr/local/etc/www.conf /etc/opt/remi/php74/php-fpm.d/
 sed -i 's/disable_functions =/disable_functions = passthru,exec,system,popen,chroot,scandir,chgrp,chown,escapesh
 ellcmd,escapeshellarg,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server,pfsockopen,putenv/g' /etc/opt/remi/php74/php.ini
 
+#安装zip uzip
+yum -y install zip unzip
+
 #安装compsoer
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
 chmod -R 777 /usr/local/bin/composer
+
+#安装git 一些composer库安装需要git
+yum -y install git
 
 #清理yum缓存
 yum clean all
