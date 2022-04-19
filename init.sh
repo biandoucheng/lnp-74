@@ -23,8 +23,6 @@ echo 'options single-request-reopen' >> /etc/resolv.conf
 
 #配置站点权限
 chown -R www:www public
-setfacl -R -d -m user:www:rwx  ./storage/logs/
-setfacl -R -d -m group:www:rwx  ./storage/logs/
 chmod -R 777 storage
 chmod -R 755 public
 

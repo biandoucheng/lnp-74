@@ -77,3 +77,21 @@ yum -y install git
 
 #清理yum缓存
 yum clean all
+
+#安装python3.10
+dos2unix ./pip.conf
+mkdir ~/.pip
+cp /usr/local/etc/pip.conf ~/.pip/pip.conf
+cd /usr/local
+wget https://www.python.org/ftp/python/3.10.1/Python-3.10.1.tgz
+tar -zxvf  Python-3.10.1.tgz && rm -f ./Python-3.10.1.tgz
+cd ./Python-3.10.1
+./configure --with-ssl
+make && make install
+ln -s /usr/local/Python-3.10.1/python /usr/bin/python3
+pip3 install pymysql pymongo redis DBUtils arrow xlrd xlwt crypto pyquery
+cd /usr/local
+rm -f ./Python-3.10.1.tgz
+
+#安装Supervisor
+pip3 install supervisor
