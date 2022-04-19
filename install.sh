@@ -8,7 +8,7 @@ wget http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 #安装 nginx必须环境
-yum -y install gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel wget
+yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel wget make
 
 #进入安装文件夹
 cd /usr/local/
@@ -48,7 +48,7 @@ yum -y install epel-release && rpm -ivh http://rpms.famillecollet.com/enterprise
 yum --enablerepo=remi -y install php74-php php74-php-fpm
 
 #安装php74扩展
-yum --enablerepo=remi -y install php74-php-xml php74-php-sockets php74-php-session php74-php-mysql php74-php-cli php74-php-bcmath php74-php-xml php74-php-pecl-redis php74-php-devel php74-php-common php74-php-json php74-php-mbstring php74-php-pdo php74-php-pear php74-php-process php74-php-intl php74-php-opcache
+yum --enablerepo=remi -y install php74-php-xml php74-php-sockets php74-php-session php74-php-mysql php74-php-cli php74-php-bcmath php74-php-xml php74-php-pecl-redis php74-php-devel php74-php-common php74-php-json php74-php-mbstring php74-php-pdo php74-php-pear php74-php-process php74-php-intl php74-php-opcache php74-php-gd php74-php-zip
 
 #设置php软连接
 mv /usr/bin/php74-cgi /usr/bin/php-cgi
@@ -82,6 +82,7 @@ yum clean all
 dos2unix ./pip.conf
 mkdir ~/.pip
 cp /usr/local/etc/pip.conf ~/.pip/pip.conf
+yum -y install libffi-devel bzip2 bzip2-devel expat expat-devel gdbm gdbm-devel readline readline-devel sqlite sqlite-devel
 cd /usr/local
 wget https://www.python.org/ftp/python/3.10.1/Python-3.10.1.tgz
 tar -zxvf  Python-3.10.1.tgz && rm -f ./Python-3.10.1.tgz
@@ -95,3 +96,6 @@ rm -f ./Python-3.10.1.tgz
 
 #安装Supervisor
 pip3 install supervisor
+echo_supervisord_conf > /etc/supervisord.conf
+echo '[include]' >> /etc/supervisord.conf
+echo 'files = /usr/local/etc/*_svd.ini' >> /etc/supervisord.conf
