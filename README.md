@@ -36,5 +36,9 @@ location / {
 
 ### 镜像构建命令
 `
-docker build --force-rm -t zhugecheng/lnp-74:1.0 .
+docker build --force-rm -t zhugecheng/lnp-74:1.1 .
 `
+
+### 版本记录
++ 1.0 版本 centos7.6 + nginx1.20.2 + php7.4 + opcache + composer + git
++ 1.1 版本 centos7.6 + nginx1.20.2 + php7.4 + opcache + composer + git + python3.10(python3) + supervisor

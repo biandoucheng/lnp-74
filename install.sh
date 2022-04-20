@@ -8,7 +8,7 @@ wget http://mirrors.163.com/centos/RPM-GPG-KEY-CentOS-7
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-7
 
 #安装 nginx必须环境
-yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel wget make
+yum -y install gcc gcc-c++ pcre pcre-devel zlib zlib-devel openssl openssl-devel wget make zip unzip initscripts
 
 #进入安装文件夹
 cd /usr/local/
@@ -64,9 +64,6 @@ cp /usr/local/etc/www.conf /etc/opt/remi/php74/php-fpm.d/
 sed -i 's/disable_functions =/disable_functions = passthru,exec,system,popen,chroot,scandir,chgrp,chown,escapesh
 ellcmd,escapeshellarg,shell_exec,proc_open,proc_get_status,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server,pfsockopen,putenv/g' /etc/opt/remi/php74/php.ini
 
-#安装zip uzip
-yum -y install zip unzip
-
 #安装compsoer
 curl -sS https://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer
@@ -75,15 +72,12 @@ chmod -R 777 /usr/local/bin/composer
 #安装git 一些composer库安装需要git
 yum -y install git
 
-#清理yum缓存
-yum clean all
-
 #安装python3.10
+cd /usr/local
 dos2unix ./pip.conf
 mkdir ~/.pip
 cp /usr/local/etc/pip.conf ~/.pip/pip.conf
 yum -y install libffi-devel bzip2 bzip2-devel expat expat-devel gdbm gdbm-devel readline readline-devel sqlite sqlite-devel
-cd /usr/local
 wget https://www.python.org/ftp/python/3.10.1/Python-3.10.1.tgz
 tar -zxvf  Python-3.10.1.tgz && rm -f ./Python-3.10.1.tgz
 cd ./Python-3.10.1
@@ -91,11 +85,13 @@ cd ./Python-3.10.1
 make && make install
 ln -s /usr/local/Python-3.10.1/python /usr/bin/python3
 pip3 install pymysql pymongo redis DBUtils arrow xlrd xlwt crypto pyquery
-cd /usr/local
-rm -f ./Python-3.10.1.tgz
 
 #安装Supervisor
+cd /usr/local
 pip3 install supervisor
 echo_supervisord_conf > /etc/supervisord.conf
 echo '[include]' >> /etc/supervisord.conf
 echo 'files = /usr/local/etc/*_svd.ini' >> /etc/supervisord.conf
+
+#清理yum缓存
+yum clean all
