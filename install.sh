@@ -48,7 +48,7 @@ yum -y install epel-release && rpm -ivh http://rpms.famillecollet.com/enterprise
 yum --enablerepo=remi -y install php74-php php74-php-fpm
 
 #安装php74扩展
-yum --enablerepo=remi -y install php74-php-xml php74-php-sockets php74-php-session php74-php-mysql php74-php-cli php74-php-bcmath php74-php-xml php74-php-pecl-redis php74-php-devel php74-php-common php74-php-json php74-php-mbstring php74-php-pdo php74-php-pear php74-php-process php74-php-intl php74-php-opcache php74-php-gd php74-php-zip
+yum --enablerepo=remi -y install php74-php-xml php74-php-sockets php74-php-session php74-php-mysql php74-php-cli php74-php-bcmath php74-php-xml php74-php-pecl-redis php74-php-devel php74-php-common php74-php-json php74-php-mbstring php74-php-pdo php74-php-pear php74-php-process php74-php-intl php74-php-opcache php74-php-gd php74-php-zip php74-php-pgsql
 
 #设置php软连接
 mv /usr/bin/php74-cgi /usr/bin/php-cgi
